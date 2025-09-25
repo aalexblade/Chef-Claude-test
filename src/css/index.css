@@ -15,7 +15,9 @@ header {
   gap: 11px;
   height: 80px;
   background-color: white;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 1px 3px 0px 
+              rgba(0, 0, 0, 0.10), 0px 1px 2px 0px 
+              rgba(0, 0, 0, 0.06);
 }
 
 header > img {
@@ -119,6 +121,7 @@ ul.ingredients-list > li {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.suggested-recipe-container ul li, .suggested-recipe-container ol li {
+.suggested-recipe-container ul li, 
+.suggested-recipe-container ol li {
   margin-bottom: 8px;
 }
