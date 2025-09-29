@@ -7,6 +7,11 @@ export default function IngredientsList({
   isLoading,
   clearIngredients,
 }) {
+  const MIN_INGREDIENTS = 5; // Встановлюємо мінімально необхідну кількість інгредієнтів
+  
+  // Визначаємо, чи має бути активна кнопка "Get a Recipe"
+  const isGetRecipeDisabled = isLoading || ingredients.length < MIN_INGREDIENTS;
+
   const handleGetRecipe = () => {
     if (!isLoading) {
       getRecipe();
@@ -57,12 +62,24 @@ export default function IngredientsList({
         {/* Get Recipe Button */}
         <button
           onClick={handleGetRecipe}
-          disabled={isLoading}
+          // !!! ЗАСТОСОВУЄМО ЛОГІКУ ВИМКНЕННЯ КНОПКИ !!!
+          disabled={isGetRecipeDisabled} 
           className="get-recipe-btn"
         >
-          {isLoading ? "Generating..." : "Get a Recipe"}
+          {isLoading 
+            ? "Generating..." 
+            : ingredients.length < MIN_INGREDIENTS 
+              ? `Add ${MIN_INGREDIENTS - ingredients.length} more ingredient${MIN_INGREDIENTS - ingredients.length > 1 ? 's' : ''}` // Інформативне повідомлення
+              : "Get a Recipe"
+          }
         </button>
       </div>
+      {/* Додамо повідомлення для користувача, якщо інгредієнтів менше 5 */}
+      {ingredients.length < MIN_INGREDIENTS && (
+        <p className="hint-message">
+          💡 Add at least **{MIN_INGREDIENTS - ingredients.length}** more ingredients to get a recipe.
+        </p>
+      )}
     </section>
   );
 }
