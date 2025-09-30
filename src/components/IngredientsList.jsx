@@ -7,7 +7,7 @@ export default function IngredientsList({
   isLoading,
   clearIngredients,
 }) {
-  const MIN_INGREDIENTS = 5; // Встановлюємо мінімально необхідну кількість інгредієнтів
+  const MIN_INGREDIENTS = 4; // Встановлюємо мінімально необхідну кількість інгредієнтів
   
   // Визначаємо, чи має бути активна кнопка "Get a Recipe"
   const isGetRecipeDisabled = isLoading || ingredients.length < MIN_INGREDIENTS;
