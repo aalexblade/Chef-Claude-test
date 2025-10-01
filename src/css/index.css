@@ -9,6 +9,7 @@ body {
   margin: 0;
   font-family: Inter, sans-serif;
   background-color: #fafaf8;
+  color: #333;
 }
 
 main {
@@ -20,57 +21,81 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
   height: 80px;
-  background-color: white;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1),
-    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, #fffdf7 0%, #fdf3e7 100%);
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 header > img {
-  width: 50px;
+  width: 55px;
+  transition: transform 0.3s ease;
+}
+
+header > img:hover {
+  transform: rotate(-8deg) scale(1.1);
 }
 
 header > h1 {
+  font-family: "Pacifico", cursive;
   font-weight: 400;
+  font-size: 1.8rem;
+  color: #d17557;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* ====================================================================
    2. INPUT FORM STYLES
    ==================================================================== */
-
 .add-ingredient-form {
   display: flex;
   justify-content: center;
   gap: 12px;
-  height: 38px;
+  height: 40px;
+  margin-top: 25px;
 }
 
 .add-ingredient-form > input {
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  padding: 9px 13px;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 10px 14px;
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.05);
   flex-grow: 1;
-  min-width: 150px;
+  min-width: 180px;
   max-width: 400px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.add-ingredient-form > input:focus {
+  border-color: #d17557;
+  box-shadow: 0 0 0 3px rgba(209, 117, 87, 0.25);
+  outline: none;
 }
 
 .add-ingredient-form > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   font-family: Inter, sans-serif;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
-  background-color: #141413;
-  color: #fafaf8;
-  width: 150px;
-  font-size: 0.875rem;
+  background-color: #d17557;
+  color: #fff;
+  width: 160px;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.25s, transform 0.15s;
 }
 
 .add-ingredient-form > button:hover:not(:disabled) {
-  background-color: #333;
+  background-color: #b86249;
+  transform: translateY(-2px);
 }
 
 .add-ingredient-form > button:disabled {
@@ -79,40 +104,39 @@ header > h1 {
 }
 
 .add-ingredient-form > button::before {
-  content: "+";
-  margin-right: 5px;
+  content: "➕";
+  font-size: 1.1rem;
 }
 
 /* ====================================================================
    3. INGREDIENT LIST & ITEMS
    ==================================================================== */
-
 .ingredients-list {
   list-style: none;
   padding: 0;
   max-width: 400px;
-  margin: 20px 0;
-  margin-bottom: 20px;
+  margin: 25px auto;
 }
 
-/* FLEXBOX FOR LIST ITEM */
 .ingredient-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
-  margin-bottom: 5px;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  transition: background-color 0.2s;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s, background-color 0.2s;
+  animation: fadeIn 0.3s ease;
 }
 
-/* ACCENT ON HOVER */
 .ingredient-item:hover {
-  background-color: #f0f0f0;
+  background-color: #fffaf5;
+  transform: translateX(3px);
 }
 
-/* INGREDIENT TEXT */
 .ingredient-name {
   margin-right: 15px;
   overflow: hidden;
@@ -122,7 +146,6 @@ header > h1 {
   line-height: 28px;
 }
 
-/* REMOVE BUTTON STYLING (Circle & Black X) - ВИПРАВЛЕНО */
 .remove-ingredient-btn {
   flex-shrink: 0;
   display: flex;
@@ -130,15 +153,16 @@ header > h1 {
   align-items: center;
   color: #475467;
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   cursor: pointer;
   border: none;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .remove-ingredient-btn:hover:not(:disabled) {
-  background-color: #d1d5db;
-  color: #000;
+  background-color: #ffe4d8;
+  color: #d17557;
 }
 
 .remove-ingredient-btn:disabled {
@@ -147,11 +171,15 @@ header > h1 {
   color: #ccc;
 }
 
+/* Animation for new items */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-5px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
 /* ====================================================================
    4. ACTION BUTTONS & CONTAINERS
    ==================================================================== */
-
-/* Container for Clear List and Get Recipe buttons */
 .ingredients-actions {
   display: flex;
   justify-content: space-between;
@@ -161,17 +189,15 @@ header > h1 {
   gap: 10px;
 }
 
-/* Clear List Button */
 .clear-ingredients-btn {
   border: 1px solid #d1d5db;
-  border-radius: 6px;
-  /* background: #d17557; */
+  border-radius: 8px;
   color: #475467;
-  padding: 9px 17px;
+  padding: 10px 18px;
   font-family: Inter, sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.05);
   transition: background-color 0.2s;
   flex-grow: 1;
 }
@@ -185,23 +211,23 @@ header > h1 {
   cursor: not-allowed;
 }
 
-/* Get Recipe Button */
 .get-recipe-btn {
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #d17557;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-  color: #fafaf8;
-  padding: 9px 17px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.05);
+  color: #fff;
+  padding: 10px 18px;
   font-family: Inter, sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: opacity 0.2s, background-color 0.2s;
+  transition: opacity 0.2s, background-color 0.2s, transform 0.15s;
   flex-grow: 1;
 }
 
 .get-recipe-btn:hover:not(:disabled) {
   background-color: #b86249;
+  transform: translateY(-2px);
 }
 
 .get-recipe-btn:disabled {
@@ -209,36 +235,30 @@ header > h1 {
   cursor: not-allowed;
 }
 
-/* Видаляємо старий контейнер, щоб уникнути конфліктів */
-.get-recipe-container {
-  display: none;
-}
-
 /* ====================================================================
-   5. UTILITY & FEEDBACK (Errors, Warnings, Loading)
+   5. UTILITY & FEEDBACK
    ==================================================================== */
-
-/* General styles for error and warning messages */
 .error-message {
   padding: 10px 15px;
   margin: 15px auto;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #cc0000;
-  background-color: #ffe0e0;
-  border: 1px solid #cc0000;
   max-width: 400px;
 }
 
-/* Style for warnings (duplicates, limit reached) */
+.error-message.error {
+  color: #cc0000;
+  background-color: #ffe0e0;
+  border: 1px solid #cc0000;
+}
+
 .error-message.warning {
   color: #a37200;
   background-color: #fff9e5;
   border: 1px solid #a37200;
 }
 
-/* Loading indicator */
 .loading-message {
   text-align: center;
   padding: 20px;
@@ -247,16 +267,16 @@ header > h1 {
 }
 
 /* ====================================================================
-   6. RECIPE DISPLAY (ClaudeRecipe)
+   6. RECIPE DISPLAY
    ==================================================================== */
-
 .suggested-recipe-container {
-  padding: 1rem;
+  padding: 1.5rem;
   background-color: #fffefb;
   border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   max-width: 800px;
   margin: 30px auto;
+  animation: fadeIn 0.4s ease;
 }
 
 .suggested-recipe-container img {
@@ -269,4 +289,5 @@ header > h1 {
 .suggested-recipe-container ul li,
 .suggested-recipe-container ol li {
   margin-bottom: 8px;
+  line-height: 1.5;
 }
